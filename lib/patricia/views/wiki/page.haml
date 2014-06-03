@@ -10,6 +10,11 @@
       = @page_title
       %hr
       = @html
+      %hr
+      - if defined?(@markup_url)
+        %p.text-center
+          %small
+            %a.text-muted{:href => "#{@markup_url}"} Markup for this page
     %div.col.col-md-3.col-md-offset-1.well#p-sidebar
       %input.form-control#p-sidebar-search-box{:type => 'text', :placeholder => 'Search'}
       %p.text-right

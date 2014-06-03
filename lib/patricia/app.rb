@@ -177,6 +177,7 @@ module PatriciaApp
       begin
         file_path = Dir[settings.app_markup_dir + '/' + path +
                         settings.app_markdown_glob].first
+        @markup_url = file_path.gsub(/#{settings.app_markup_dir}/, '')
         @html = Patricia::Converter.to_html(file_path)
         @toc = build_toc
         arrow = ' > '
