@@ -1,0 +1,19 @@
+%br
+%div.container
+  %div.row
+    %div.col.col-md-7.col-md-offset-1#content
+      %a{:href => "/"}
+        %strong= @title
+      - if !@page_title.empty?
+        |
+      %span.text-muted= @breadcrumb
+      = @page_title
+      %hr
+      = @html
+    %div.col.col-md-3.col-md-offset-1.well#p-sidebar
+      %input.form-control#p-sidebar-search-box{:type => 'text', :placeholder => 'Search'}
+      %p.text-right
+        %a.btn.btn-link.btn-xs#p-sidebar-width-toggle{:href => ''} Widen sidebar
+      %br
+      %div#toc
+        = @toc
