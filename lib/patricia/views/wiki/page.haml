@@ -2,14 +2,20 @@
 %div.container
   %div.row
     %div.col.col-md-7.col-md-offset-1#content
-      %a{:href => "/"}
-        %strong= @title
-      - if !@page_title.empty?
-        |
-      %span.text-muted= @breadcrumb
-      = @page_title
+      %div.row
+        %div.col.col-md-8
+          %a{:href => "/"}
+            %strong= @title if defined?(@title)
+          - if defined?(@page_title)
+            - if !@page_title.empty?
+              |
+          %span.text-muted= @breadcrumb
+          = @page_title if defined?(@page_title)
+        %div.col.col-md-4
+          %p.text-right
+            %a.text-muted.small{:href => "/patricia/search"} Search pages >
       %hr
-      = @html
+      = @html if defined?(@html)
       %hr
       - if defined?(@markup_url)
         %p.text-center
@@ -20,5 +26,6 @@
       %p.text-right
         %a.btn.btn-link.btn-xs#p-sidebar-width-toggle{:href => ''} Widen sidebar
       %br
-      %div#toc
-        = @toc
+      - if defined?(@toc)
+        %div#toc
+          = @toc

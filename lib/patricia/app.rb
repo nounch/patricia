@@ -136,6 +136,41 @@ module PatriciaApp
       haml '404'.to_sym, :layout => :application
     end
 
+    get %r{/patricia/search/?} do
+      haml :search, :layout => :application
+    end
+
+    post %r{/patricia/search/?} do
+      @previous_search_query = params[:search_query] || ''
+      if params[:case_sensitive]
+        search_query = %r{#{params[:search_query]}}
+        @previous_search_query_was_sensitive = true
+      else
+        search_query = %r{#{params[:search_query]}}i
+        @previous_search_query_was_sensitive = false
+      end
+      # Search all markup files
+      @results = []
+      paths = Dir[File.join(settings.app_markup_dir, '/**/*' +
+                            settings.app_markdown_glob)]
+      paths.each do |path|
+        if File.read(path)
+          p = path.gsub(/#{settings.app_markup_dir}/, '')
+          file_name = File.basename(p, '.*')
+          no_ext = File.join(File.dirname(p), file_name).sub(/^\.\//, '')
+          beautiful_file_name = capitalize_all(file_name.gsub(/-/, ' '))
+          beautiful_path = no_ext.split('/').collect do |s|
+            capitalize_all(s.gsub(/-/, ' '))
+          end.join(' > ')
+          content = File.read(path)
+          if content =~ search_query
+            @results << [beautiful_file_name, '/' + no_ext, beautiful_path]
+          end
+        end
+      end
+      haml :search, :layout => :application
+    end
+
     get settings.app_css_path do
       pwd = File.dirname(__FILE__)
       css = ''

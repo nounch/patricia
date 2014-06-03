@@ -124,6 +124,24 @@ request" do
         end
       end
     end
+
+    # Diverse
+
+    describe "Page search" do
+      it "returns a list of pages with the search query provided by a \
+POST request" do
+        post '/patricia/search', {:search_query =>
+          'color', :case_sensitive => false}
+        expect(last_response).to be_ok
+      end
+
+      it "displays links to all the pages found for the last search query \
+upon a GET request" do
+        get '/patricia/search'
+        expect(last_response).to be_ok
+      end
+    end
+
   end
 
   describe "Use custom CSS and JavaScript" do
