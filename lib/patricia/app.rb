@@ -29,7 +29,7 @@ module PatriciaApp
                                        __FILE__)
         app_configs = YAML.load_file(config_file)
         markup_dir = app_configs[:markup_dir]
-        set :environment, 'development'
+        set :environment, 'production'
         set :app_markup_dir, markup_dir
         set :app_markdown_glob, '.{md,markdown,org,textile,rst,rest,restx}'
         set :app_css_path, '/patricia.css'
@@ -163,8 +163,10 @@ module PatriciaApp
             capitalize_all(s.gsub(/-/, ' '))
           end.join(' > ')
           content = File.read(path)
+          lines = content.split("\n").length
           if content =~ search_query
-            @results << [beautiful_file_name, '/' + no_ext, beautiful_path]
+            @results << [beautiful_file_name, '/' + no_ext, beautiful_path,
+                         lines]
           end
         end
       end
