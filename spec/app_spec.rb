@@ -69,8 +69,8 @@ request" do
       end
 
       describe "Markup language: reStructuredText" do
-        it "reads a reStructuredText file and renders it as HTML upon a GET \
-request" do
+        it "reads a reStructuredText file and renders it as HTML upon a \
+GET request" do
           get '/colors/light-pink'
           expect(last_response).to be_ok
           expect(last_response.body)
@@ -83,8 +83,18 @@ request" do
     describe "Return static files" do
       describe "Static file: PNG image" do
         it "returns a PNG image uppon a GET request" do
-          get '/colors/red.md'
+          get '/colors/image.png'
           expect(last_response).to be_ok
+          expect(last_response.headers['Content-Type']).to eq('image/png')
+        end
+      end
+
+      describe "Static file: HTML image" do
+        it "returns a HTML image uppon a GET request" do
+          get '/colors/cyan.html'
+          expect(last_response).to be_ok
+          expect(last_response.headers['Content-Type'])
+            .to eq('text/html;charset=utf-8')
         end
       end
 

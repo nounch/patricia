@@ -79,10 +79,12 @@ module PatriciaApp
           'sh' => 'application/x-sh',
           '7z' => 'application/x-7z-compressed',
           'swf' => 'application/x-shockwave-flash',
+          'xml' => 'application/xml;charset=utf-8',
           'avi' => 'video/x-msvideo',
           'txt' => 'text/plain',
           'css' => 'text/css',
           'csv' => 'text/csv',
+          'html' => 'text/html',
           # Send markup source files
           #
           # One can argue if this is semantically correct (alternative:
