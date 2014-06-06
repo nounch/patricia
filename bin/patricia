@@ -11,6 +11,7 @@ config = {
   :js_dir => CLI.options[:js],
   :markup_dir => CLI.options[:markup_dir],
   :tooltips => CLI.options[:tooltips],
+  :editor => CLI.options[:editor],
 }
 config_file = File.dirname(__FILE__) + '/app_config.yml'
 # The thread ensures that the config file is written before the Sinatra app

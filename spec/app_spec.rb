@@ -25,6 +25,7 @@ describe "PatriciaApp::App" do
         :css_dir => nil,
         :js_dir => nil,
         :tooltips => false,
+        :editor => true,
       }
       load_config(config)
     end
@@ -152,6 +153,24 @@ upon a GET request" do
       end
     end
 
+    # Page Editing
+
+    describe "Page Editing" do
+      it "finds all matches for a sting in a page's markup and returns \
+the markup together with the match offsets (POST)" do
+        post '/patricia/offsets', {:markup_url =>
+          'colors/red.md', :string => 'red'}
+        expect(last_response).to be_ok
+      end
+
+      # it "updates the markup for a page with new markup (POST)" do
+      #   new_markup = "# New markup\n\nThis is some *new* markup.\n"
+      #   post '/patricia/edit', {:markup_url =>
+      #     'colors/red.md', :string => new_markup}
+      #   expect(last_response).to be_ok
+      # end
+    end
+
   end
 
   describe "Use custom CSS and JavaScript" do
@@ -162,6 +181,7 @@ upon a GET request" do
         :js_dir => File.join(File.dirname(__FILE__),
                              'assets/javascripts/'),
         :tooltips => false,
+        :editor => false,
       }
       load_config(config)
     end

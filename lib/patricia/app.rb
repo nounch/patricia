@@ -1,5 +1,7 @@
 require 'sinatra/base'
 require 'yaml'
+require 'json'
+require 'timeout'
 
 
 module PatriciaApp
@@ -36,6 +38,7 @@ module PatriciaApp
         set :app_js_path, '/patricia.js'
         set :app_public_folder, app_configs[:public_folder]
         set :app_tooltips, app_configs[:tooltips]
+        set :app_editor, app_configs[:editor]
         # CSS
         if app_configs[:css_dir] != nil
           set :app_css_dir, app_configs[:css_dir]
@@ -123,8 +126,9 @@ module PatriciaApp
     end
 
     get '/' do
-      @html = Patricia::Converter .to_html(File.dirname(__FILE__) +
-                                           '/views/wiki/welcome.md')
+      @html = '<div id="p-welcome-text-page" class="">' +
+        Patricia::Converter .to_html(File.dirname(__FILE__) +
+                                     '/views/wiki/welcome.md') + '</div>'
       @toc = build_toc
       @title = generate_page_title
       @page_title = ''
@@ -175,6 +179,52 @@ module PatriciaApp
       haml :search, :layout => :application
     end
 
+    post %r{/patricia/offsets/?} do
+      if settings.app_editor
+        file_content = File.read(File.join(settings.app_markup_dir,
+                                           params[:markup_url]))
+        offsets = []
+        # Time out if the RegEx is too complex.
+        begin
+          Timeout::timeout(3) do
+            filler = " *\n*\w*"
+            pattern = Regexp.new(filler, Regexp::MULTILINE)
+            params[:string].split.each do |token|
+              pattern =
+                Regexp.new(pattern.to_s + filler + Regexp.quote(token),
+                           Regexp::MULTILINE)
+            end
+            pattern = Regexp.new(pattern.to_s + filler, Regexp::MULTILINE)
+
+            # Skip empty/whitespace only queries.
+            if !pattern.to_s.empty? && !(pattern.to_s =~ /^\s*$/)
+              file_content.scan(pattern) do |c|
+                offsets << [$~.offset(0)[0], $~.offset(0)[1]]
+              end
+            end
+          end
+        rescue
+          # Ignore.
+        end
+
+        content_type 'json'
+        {:markup => file_content, :offsets => offsets}.to_json
+      else
+        redirect to('/404')
+      end
+    end
+
+    post %r{/patricia/edit/?} do
+      if settings.app_editor
+        File.open(File.join(settings.app_markup_dir,
+                            params[:markup_url]), 'w') do |f|
+          f.puts(params[:string])
+        end
+      else
+        redirect to('/404')
+      end
+    end
+
     get settings.app_css_path do
       pwd = File.dirname(__FILE__)
       css = ''
@@ -198,6 +248,7 @@ module PatriciaApp
          '/assets/javascripts/app.js',
         ]
       files << '/assets/javascripts/tooltips.js' if settings.app_tooltips
+      files << '/assets/javascripts/editor.js' if settings.app_editor
       files.each do |path|
         js << File.read(pwd + path) + "\n\n"
       end

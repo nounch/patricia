@@ -16,6 +16,11 @@ module CLI
     opts.separator ''
     opts.separator 'Options:'
 
+    opts.on('-p', '--port PORT', Integer,
+            'Port to run the server on') do |v|
+      options[:port] = v
+    end
+
     opts.on('-c', '--css DIR', 'Directory with CSS files to be',
             'included in the output',
             '  (All .css files in this directory',
@@ -35,9 +40,8 @@ module CLI
       options[:tooltips] = v
     end
 
-    opts.on('-p', '--port PORT', Integer,
-            'Port to run the server on') do |v|
-      options[:port] = v
+    opts.on('-e', '--editor', 'Enable markup editor') do |v|
+      options[:editor] = v
     end
 
     # Description

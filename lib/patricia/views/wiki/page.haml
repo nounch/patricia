@@ -1,21 +1,23 @@
 %br
 %div.container
   %div.row
-    %div.col.col-md-7.col-md-offset-1#content
-      %div.row
-        %div.col.col-md-8
-          %a{:href => "/"}
-            %strong= @title if defined?(@title)
-          - if defined?(@page_title)
-            - if !@page_title.empty?
-              |
-          %span.text-muted= @breadcrumb
-          = @page_title if defined?(@page_title)
-        %div.col.col-md-4
+    %div.col.col-md-7.col-md-offset-1
+      %div.row.panel.panel-default.panel-body.top-panel
+        %div.col.col-md-9
+          %p
+            %strong
+              %a{:href => "/"}= @title if defined?(@title)
+        %div.col.col-md-3
           %p.text-right
             %a.text-muted.small#p-page-search-link{:href => "/patricia/search"} Search pages >
-      %hr
-      = @html if defined?(@html)
+        %div.row
+          %div.col.col-md-12.page-title
+            %span.text-muted= @breadcrumb
+            = @page_title if defined?(@page_title)
+
+      -# %hr
+      %div#content
+        = @html if defined?(@html)
       %hr
       - if defined?(@markup_url)
         %p.text-center
@@ -29,3 +31,29 @@
       - if defined?(@toc)
         %div#toc
           = @toc
+- if defined?(@markup_url)
+  %a.hidden#edit-button{:href => "/patricia/offsets", 'data-markup-url' => "#{@markup_url}"} Edit
+  %a.hidden#left-edit-button.btn.btn-default{:href => "/patricia/offsets", 'data-markup-url' => "#{@markup_url}"} Edit
+
+%div.modal.fade#edit-modal{:tabindex => '-1', :role => 'dialog'}
+  %div.modal-dialog.modal-lg
+    %div.modal-content
+      %div.modal-header
+        %button.close{:type => 'button', 'data-dismiss' => 'modal', 'aria-hidden' => 'true'} &times;
+        %h4.no-style.modal-title Edit Page Markup
+      %div.modal-body
+        %pre#currently-selected-text-info{:title => 'Selected text', 'data-toggle' => 'tooltip', 'data-placement' => 'top'}
+        %textarea.form-control{:rows => 15, :cols => 100}
+        %div.container#edit-navigation-box
+          %div.row
+            %br
+            %div.col-md-2.col-md-offset-3
+              %a#previous-match-button.btn.btn-default.btn-block{:href => '#'} < Previous match
+            %div.col-md-1
+              %span#current-offset-index
+              %span#offsets-length
+            %div.col-md-2
+              %a#next-match-button.btn.btn-default.btn-block{:href => '#'} Next match >
+      %div.modal-footer
+        %button.btn.btn-default{:type => 'button', 'data-dismiss' => 'modal'} Cancel
+        %button.btn.btn-primary#edit-save-button{:type => 'button', 'data-dismiss' => 'modal', 'data-url' => '/patricia/edit'} Save
