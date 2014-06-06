@@ -19,6 +19,16 @@ right file extension. Static files (images/PDFs/video/...) in the markup
 directory are served as is, so you can link to them from any page and the
 links will not break.
 
+Patricia also comes with some optional goodies:
+  
+- Basic markup editor (`-e` flag) that allows you to select an element or
+  highlight text on a page and brings up the corresponding markup, if it
+  can figure it out.
+- Tooltips (`-t` flag) which show you the full file path for every
+  directory and file in the sidebar by hovering over it.
+- RegEx search across all pages (if you tag your pages using a consistent
+  pattern, you can use this to get a list of all pages for certain tags).
+
 ## Installation
 
         gem install patricia
@@ -75,3 +85,23 @@ To add support for a new language do this:
    possible, so that browsers will display them on a page instead of
    prompting to download the file.
 5. *Make sure the tests pass*
+
+## Editor
+
+Patricia's rudimentary and completely optional markup editor can
+be enabled using the `-e` flat. It allows you to edit the markup for
+editable components by hovering over them or by simply selecting text. It
+tries its best to figure out which part of the markup is responsible for
+the selected element and highlights it so that one can immediately jump to
+the corresponding markup for quick fixes or even larger changes. Keep in
+mind that this is not perfect, but it definetly is usable and is quite
+handy for a lot of small fixes across multiple files as well as correcting
+typos.
+
+## Page search
+
+There is the search box in the sidebar that allows you to quickly search
+all page titles, but there is also a buillt-in search page that allows you
+to search the actual text of each page using regular expressions. So if you
+include (hash) tags on your pages, you can use this to search all matching
+pages, for instance.

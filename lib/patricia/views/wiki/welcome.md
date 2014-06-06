@@ -93,8 +93,34 @@ user, run:
 ## Sidebar
 
 - The search box is case-insensitive, but otherwise RegEx-aware.
-
 - The sidebar can be widened. Click `Widen sidebar` or hit the `w` key.
+- Hit `s` to focus the search bar from wherever you are on a page.
+
+## Editor
+
+- Use the `-e` flag to enable the editor.
+- There are three ways to edit text:
+  1. Hover over elements. Editable elements will present you with an `Edit`
+     link.
+  2. Hover over an editable element and press the `e` key.
+  3. Highlight some arbitrary text and press the `Edit` button that appears
+     or hit the `e` key.
+- Patricia tries to figure out which markup source matches the selected
+  text. If there are multiple matches, you can step through all of them.
+
+## Tooltips
+
+... can be enabled using the `-t` flag and will show tooltips for every
+sidebar item.
+
+## Page Search
+
+- There is a `Search pages` link on every page.
+- The search is performed across all markup source files and will return a
+  list of matching pages.
+- Regular expressions can be used.
+
+## Keyboard Shortcuts
 
 - Press `?` to get a list of all keyboard shortcuts.
 
