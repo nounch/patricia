@@ -171,7 +171,7 @@ module PatriciaApp
           content = File.read(path)
           lines = content.split("\n").length
           if content =~ search_query
-            @results << [beautiful_file_name, '/' + no_ext, beautiful_path,
+            @results << [beautiful_file_name, no_ext, beautiful_path,
                          lines]
           end
         end
