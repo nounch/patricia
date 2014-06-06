@@ -39,6 +39,7 @@ module PatriciaApp
         set :app_public_folder, app_configs[:public_folder]
         set :app_tooltips, app_configs[:tooltips]
         set :app_editor, app_configs[:editor]
+        set :app_gfm, app_configs[:gfm]
         # CSS
         if app_configs[:css_dir] != nil
           set :app_css_dir, app_configs[:css_dir]
@@ -126,9 +127,14 @@ module PatriciaApp
     end
 
     get '/' do
-      @html = '<div id="p-welcome-text-page" class="">' +
-        Patricia::Converter.to_html(File.dirname(__FILE__) +
-                                    '/views/wiki/welcome.md') + '</div>'
+      if settings.app_gfm
+        html = Patricia::Converter.gfm_to_html(File.dirname(__FILE__) +
+                                               '/views/wiki/welcome.md')
+      else
+        html = Patricia::Converter.to_html(File.dirname(__FILE__) +
+                                           '/views/wiki/welcome.md')
+      end
+      @html = '<div id="p-welcome-text-page" class="">' + html + '</div>'
       @toc = build_toc
       @title = generate_page_title
       @page_title = ''
@@ -268,7 +274,11 @@ module PatriciaApp
         file_path = Dir[settings.app_markup_dir + '/' + path +
                         settings.app_markdown_glob].first
         @markup_url = file_path.gsub(/#{settings.app_markup_dir}/, '')
-        @html = Patricia::Converter.to_html(file_path)
+        if settings.app_gfm
+          @html = Patricia::Converter.gfm_to_html(file_path)
+        else
+          @html = Patricia::Converter.to_html(file_path)
+        end
         @toc = build_toc
         arrow = ' > '
         @title = generate_page_title

@@ -44,6 +44,11 @@ module CLI
       options[:editor] = v
     end
 
+    opts.on('-g', '--gfm',
+            'Use GitHub Flavored Markdown for all', '  rendering') do |v|
+      options[:gfm] = v
+    end
+
     # Description
 
     opts.separator ''
