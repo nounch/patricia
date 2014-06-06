@@ -15,8 +15,7 @@
             %span.text-muted= @breadcrumb
             = @page_title if defined?(@page_title)
 
-      -# %hr
-      %div#content
+      %div.row#content
         = preserve do
           = @html if defined?(@html)
       %hr
