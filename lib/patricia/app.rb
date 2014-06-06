@@ -167,7 +167,7 @@ module PatriciaApp
           beautiful_file_name = capitalize_all(file_name.gsub(/-/, ' '))
           beautiful_path = no_ext.split('/').collect do |s|
             capitalize_all(s.gsub(/-/, ' '))
-          end.join(' > ')
+          end.delete_if(&:empty?).join(' > ')
           content = File.read(path)
           lines = content.split("\n").length
           if content =~ search_query
