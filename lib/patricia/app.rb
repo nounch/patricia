@@ -127,8 +127,8 @@ module PatriciaApp
 
     get '/' do
       @html = '<div id="p-welcome-text-page" class="">' +
-        Patricia::Converter .to_html(File.dirname(__FILE__) +
-                                     '/views/wiki/welcome.md') + '</div>'
+        Patricia::Converter.to_html(File.dirname(__FILE__) +
+                                    '/views/wiki/welcome.md') + '</div>'
       @toc = build_toc
       @title = generate_page_title
       @page_title = ''
