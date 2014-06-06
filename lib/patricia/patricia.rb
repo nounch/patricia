@@ -3,7 +3,7 @@ require 'kramdown'
 require 'org-ruby'
 require 'redcloth'
 require 'pandoc-ruby'
-require 'github/markdown'
+require 'github/markup'
 
 
 module Patricia
@@ -57,7 +57,7 @@ module Patricia
     end
 
     def self.gfm_to_html(path)
-      GitHub::Markdown.render(File.read(path))
+      GitHub::Markup.render(path)
     end
   end
 
