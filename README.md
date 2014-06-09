@@ -28,6 +28,7 @@ Patricia also comes with some optional goodies:
   directory and file in the sidebar by hovering over it.
 - RegEx search across all pages (if you tag your pages using a consistent
   pattern, you can use this to get a list of all pages for certain tags).
+- GitHub Flavored Markdown/Markup support (`-g` flat)
 
 ## Installation
 
@@ -62,7 +63,8 @@ Run `patricia --help` to see a list of all options.
 ## Markup Languages
 
 Patricia supports the following markup languages (supported file
-extensions in parentheses):
+extensions in parentheses) - except when using the `-g` command line
+switch *(see below)*:
 
 - Markdown (`.md`, `.markdown`) via `kramdown`
 - Org (`.org`) via `org-ruby`
@@ -85,6 +87,12 @@ To add support for a new language do this:
    possible, so that browsers will display them on a page instead of
    prompting to download the file.
 5. *Make sure the tests pass*
+
+Alternatively one can use the `-g` flag to force the usage of the
+`github-markup` gem to render all pages. This lets you use GitHub Flavored
+Markdown. It will render *all* pages of any markup type using this gem, not
+only Markdown. As a result, when using `-g`, all the markup languages of
+the `github-markup` gem are supported.
 
 ## Editor
 

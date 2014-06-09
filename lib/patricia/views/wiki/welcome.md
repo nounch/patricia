@@ -120,8 +120,15 @@ sidebar item.
   list of matching pages.
 - Regular expressions can be used.
 
+## GitHub Flavored Markdown
+
+With the `-g` command line switch you can use GitHub Flavored Markdown.
+This will force *all* pages to be rendered using the `github-markdown` gem.
+Consequence: All the markup languages supported by this gem are supported
+by Patircia.
+
 ## Keyboard Shortcuts
 
-- Press `?` to get a list of all keyboard shortcuts.
+Press `?` to get a list of all keyboard shortcuts.
 
 ---------------------------------------------------------------------------
