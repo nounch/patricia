@@ -26,6 +26,10 @@ describe "PatriciaApp::App" do
         :js_dir => nil,
         :tooltips => false,
         :editor => true,
+        :ace => true,
+        :ace_mode => 'markup',
+        :ace_theme => 'solarized_dark',
+        :ace_keybinding => 'emacs',
       }
       load_config(config)
     end
@@ -181,7 +185,11 @@ the markup together with the match offsets (POST)" do
         :js_dir => File.join(File.dirname(__FILE__),
                              'assets/javascripts/'),
         :tooltips => false,
-        :editor => false,
+        :editor => true,
+        :ace => true,
+        :ace_mode => 'markup',
+        :ace_theme => 'solarized_dark',
+        :ace_keybinding => 'emacs',
       }
       load_config(config)
     end

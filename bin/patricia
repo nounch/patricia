@@ -2,6 +2,7 @@
 
 
 require 'rack'
+require 'rack/static'
 require 'yaml'
 require_relative '../lib/patricia'
 
@@ -13,6 +14,10 @@ config = {
   :tooltips => CLI.options[:tooltips],
   :editor => CLI.options[:editor],
   :gfm => CLI.options[:gfm],
+  :ace => CLI.options[:ace],
+  :ace_theme => CLI.options[:ace_theme],
+  :ace_keybinding => CLI.options[:ace_keybinding],
+  :ace_mode => CLI.options[:ace_mode],
 }
 config_file = File.dirname(__FILE__) + '/app_config.yml'
 # The thread ensures that the config file is written before the Sinatra app
@@ -43,6 +48,13 @@ if CLI.options[:output_dir]
 else
   require_relative '../lib/patricia/app'
   app = Rack::Builder.new do
+    if config[:ace]
+      use Rack::Static, :urls =>
+        [%r{/theme-.*\.js}, %r{/mode-.*\.js}, %r{/worker-.*\.js},
+         %r{/keybinding-.*\.js}, %r{/ext-.*\.js}], :root =>
+        File.expand_path("../../lib/patricia/assets/javascripts/\
+src-min-noconflict", __FILE__)
+    end
     use PatriciaApp::App
     run Proc.new { |env| [404, {'Content-Type' => 'text/html'}, ['404']] }
   end

@@ -49,6 +49,26 @@ module CLI
       options[:gfm] = v
     end
 
+    opts.on('-a', '--ace',
+            'Use Ace editor (only useful', " when using `-e')") do |v|
+      options[:ace] = v
+    end
+
+    opts.on('--ace-theme THEME',
+            'Theme to use with Ace') do |v|
+      options[:ace_theme] = v
+    end
+
+    opts.on('--ace-keybinding KEYBINDING',
+            'Keybinding to use with Ace') do |v|
+      options[:ace_keybinding] = v
+    end
+
+    opts.on('--ace-mode MODE',
+            'Mode to use with Ace') do |v|
+      options[:ace_mode] = v
+    end
+
     # Description
 
     opts.separator ''

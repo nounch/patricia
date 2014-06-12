@@ -43,7 +43,26 @@
         %h4.no-style.modal-title Edit Page Markup
       %div.modal-body
         %pre#currently-selected-text-info{:title => 'Selected text', 'data-toggle' => 'tooltip', 'data-placement' => 'top'}
-        %textarea.form-control{:rows => 15, :cols => 100}
+        - if defined?(@ace) && @ace
+
+          - if defined?(@ace_theme)
+            %div#ace-editor-theme{'data-theme' => @ace_theme}
+          - else
+            %div#ace-editor-theme{'data-theme' => 'chrome'}
+
+          - if defined?(@ace_keybinding)
+            %div#ace-editor-keybinding{'data-keybinding' => @ace_keybinding}
+          - else
+            %div#ace-editor-keybinding{'data-keybinding' => 'normal'}
+
+          - if defined?(@ace_mode)
+            %div#ace-editor-mode{'data-mode' => @ace_mode}
+          - else
+            %div#ace-editor-mode{'data-mode' => 'plain_text'}
+
+          %div#ace-editor
+        - else
+          %textarea#editor.form-control{:rows => 15, :cols => 100}
         %div.container#edit-navigation-box
           %div.row
             %br

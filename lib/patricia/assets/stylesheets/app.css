@@ -103,3 +103,9 @@ body {
 #currently-selected-text-info:hover {
   overflow: scroll;
 }
+
+#ace-editor {
+  position: inline-block;
+  width: 100%;
+  min-height: 300px;
+}

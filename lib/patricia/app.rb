@@ -39,6 +39,10 @@ module PatriciaApp
         set :app_public_folder, app_configs[:public_folder]
         set :app_tooltips, app_configs[:tooltips]
         set :app_editor, app_configs[:editor]
+        set :app_ace, app_configs[:ace]
+        set :app_ace_theme, app_configs[:ace_theme]
+        set :app_ace_keybinding, app_configs[:ace_keybinding]
+        set :app_ace_mode, app_configs[:ace_keybinding]
         set :app_gfm, app_configs[:gfm]
         # CSS
         if app_configs[:css_dir] != nil
@@ -254,6 +258,9 @@ module PatriciaApp
          '/assets/javascripts/app.js',
         ]
       files << '/assets/javascripts/tooltips.js' if settings.app_tooltips
+      files << '/assets/javascripts/src-min-noconflict/ace.js' if
+        settings.app_ace
+      files << '/assets/javascripts/ace_editor.js' if settings.app_ace
       files << '/assets/javascripts/editor.js' if settings.app_editor
       files.each do |path|
         js << File.read(pwd + path) + "\n\n"
@@ -295,6 +302,11 @@ module PatriciaApp
         @javascripts = settings.app_js
         @page_title = capitalize_all(File.basename(path).gsub(/-/, ' '))
           .split.join(' ')
+        @ace = settings.app_ace
+        @ace_theme = settings.app_ace_theme if settings.app_ace_theme
+        @ace_keybinding = settings.app_ace_keybinding if
+          settings.app_ace_keybinding
+        @ace_mode = settings.app_ace_mode if settings.app_ace_mode
         haml 'wiki/page'.to_sym, :layout => :application
       rescue
         file_path = File.join(settings.app_markup_dir, path)
