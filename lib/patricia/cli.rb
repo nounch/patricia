@@ -24,7 +24,7 @@ module CLI
     opts.on('-c', '--css DIR', 'Directory with CSS files to be',
             'included in the output',
             '  (All .css files in this directory',
-            '  and its subdirectories will be', '  hovered up.)') do |v|
+            '  and its subdirectories will be', '  hoovered up.)') do |v|
       options[:css] = File.expand_path(v.strip)
     end
 
