@@ -28,7 +28,7 @@ Patricia also comes with some optional goodies:
   directory and file in the sidebar by hovering over it.
 - RegEx search across all pages (if you tag your pages using a consistent
   pattern, you can use this to get a list of all pages for certain tags).
-- GitHub Flavored Markdown/Markup support (`-g` flat)
+- GitHub Flavored Markdown/Markup support (`-g` flag)
 
 ## Installation
 
@@ -97,7 +97,7 @@ the `github-markup` gem are supported.
 ## Editor
 
 Patricia's rudimentary and completely optional markup editor can
-be enabled using the `-e` flat. It allows you to edit the markup for
+be enabled using the `-e` flag. It allows you to edit the markup for
 editable components by hovering over them or by simply selecting text. It
 tries its best to figure out which part of the markup is responsible for
 the selected element and highlights it so that one can immediately jump to
